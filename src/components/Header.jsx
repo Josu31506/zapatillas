@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 const Header = () => {
   return (
@@ -7,13 +8,14 @@ const Header = () => {
       {/* Main Header */}
       <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-            <svg viewBox="0 0 24 24" fill="white" className="w-5 h-5">
-              <path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z" />
-            </svg>
+        {/* Logo */}
+        {/* Logo + Name */}
+        <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <img src={logo} alt="FutbolTShop" className="h-10 w-auto object-contain" />
+          <div className="flex flex-col leading-none">
+            <span className="font-black text-xl tracking-tighter uppercase italic">FUTBOLTSHOP</span>
+            <span className="text-[10px] font-bold tracking-widest text-gray-500 uppercase">Tienda de Fútbol</span>
           </div>
-          <span className="text-xl font-bold tracking-tight">Fútbol<br /><span className="font-normal">Emotion</span></span>
         </Link>
 
         {/* Search Bar */}

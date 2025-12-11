@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Hero from '../components/Hero';
+import Carousel from '../components/Carousel';
 import ProductCard from '../components/ProductCard';
 import { supabase } from '../lib/supabaseClient';
 
@@ -63,14 +64,7 @@ export const Home = () => {
 
       {/* Solo mostramos si hay productos cargados */}
       {!loading && products.length > 0 && (
-        <section className="container mx-auto px-4 py-8">
-          <h2 className="text-2xl font-black uppercase italic tracking-tighter text-gray-900 mb-6">Novedades</h2>
-          <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </section>
+        <Carousel title="Novedades" products={products} />
       )}
 
       {/* Mensaje si la base de datos está vacía */}
