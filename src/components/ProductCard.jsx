@@ -39,7 +39,7 @@ const ProductCard = ({ product }) => {
 
       {/* Info Container - Compact Text */}
       <div className="px-2 pb-3">
-        <h3 className="text-[11px] font-bold text-slate-900 line-clamp-2 min-h-[28px] leading-tight uppercase mb-1">
+        <h3 className="text-xs font-bold text-slate-900 line-clamp-2 min-h-[32px] leading-tight uppercase mb-1">
           {name}
         </h3>
 

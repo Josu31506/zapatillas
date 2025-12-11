@@ -102,6 +102,7 @@ export const Listings = () => {
         {listings.length === 0 && (
           <p className="text-center text-slate-500">No hay zapatillas registradas en Supabase todavía.</p>
         )}
+      </div>
     </section>
   );
 };
