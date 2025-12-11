@@ -19,7 +19,14 @@ const Carousel = ({ title, products }) => {
                 </div>
 
                 {/* Carrusel con tarjetas "chiquitas" (varios cuadritos) */}
-                <div className="flex gap-3 overflow-x-auto pb-6 snap-x scrollbar-hide px-2">
+                <div className="flex gap-3 overflow-x-auto pb-6 snap-x px-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                    <style>
+                        {`
+                            .no-scrollbar::-webkit-scrollbar {
+                                display: none;
+                            }
+                        `}
+                    </style>
                     {products.map((product) => (
                         <div key={product.id} className="min-w-[160px] md:min-w-[190px] snap-start flex-shrink-0">
                             <ProductCard product={product} />
