@@ -1,52 +1,202 @@
-const FiltersBar = ({ filters, onChange }) => {
+import React, { useState, useEffect } from 'react';
+
+export default function FiltersBar({ filters, onChange }) {
+  // Temporary state for filters before applying
+  const [tempFilters, setTempFilters] = useState(filters);
+
+  // Update temp filters when external filters change (from URL params, etc)
+  useEffect(() => {
+    setTempFilters(filters);
+  }, [filters]);
+
   const handleInput = (key) => (event) => {
-    onChange({ ...filters, [key]: event.target.value });
+    setTempFilters({ ...tempFilters, [key]: event.target.value });
+  };
+
+  const handlePriceChange = (key) => (event) => {
+    const value = parseInt(event.target.value) || 0;
+    setTempFilters({ ...tempFilters, [key]: value });
+  };
+
+  const handleApplyFilters = () => {
+    onChange(tempFilters);
+  };
+
+  const handleResetFilters = () => {
+    const resetFilters = {
+      search: filters.search, // Keep search from URL
+      brand: 'all',
+      category: 'all',
+      model: 'all',
+      size: 'all',
+      minPrice: 0,
+      maxPrice: 1000,
+      sort: 'newest',
+    };
+    setTempFilters(resetFilters);
+    onChange(resetFilters);
   };
 
   return (
-    <section className="mb-6 flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:flex-row md:items-center md:justify-between">
-      <div className="flex flex-1 flex-col gap-2 md:flex-row md:items-center">
-        <label className="flex flex-1 items-center gap-2 text-sm text-gray-600">
-          <span>Búsqueda</span>
-          <input
-            type="search"
-            placeholder="Buscar por nombre"
-            value={filters.search}
-            onChange={handleInput('search')}
-            className="w-full rounded border border-gray-300 px-3 py-2 text-gray-800 focus:border-black focus:outline-none"
-          />
-        </label>
-
-        <label className="flex items-center gap-2 text-sm text-gray-600">
-          <span>Marca</span>
+    <section className="mb-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      {/* Filter Grid */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
+        {/* Brand Filter */}
+        <label className="flex flex-col gap-2 text-sm text-gray-600">
+          <span className="font-semibold">Marca</span>
           <select
-            value={filters.brand}
+            value={tempFilters.brand || 'all'}
             onChange={handleInput('brand')}
             className="rounded border border-gray-300 px-3 py-2 text-gray-800 focus:border-black focus:outline-none"
           >
             <option value="all">Todas</option>
             <option value="Nike">Nike</option>
-            <option value="Adidas">Adidas</option>
-            <option value="New Balance">New Balance</option>
             <option value="Puma">Puma</option>
+            <option value="Munich">Munich</option>
+            <option value="Umbro">Umbro</option>
+            <option value="Mizuno">Mizuno</option>
+            <option value="Joma">Joma</option>
+          </select>
+        </label>
+
+        {/* Model Filter */}
+        <label className="flex flex-col gap-2 text-sm text-gray-600">
+          <span className="font-semibold">Modelo</span>
+          <select
+            value={tempFilters.model || 'all'}
+            onChange={handleInput('model')}
+            className="rounded border border-gray-300 px-3 py-2 text-gray-800 focus:border-black focus:outline-none"
+          >
+            <option value="all">Todos</option>
+            <option value="Gresca">Gresca</option>
+            <option value="Continental">Continental</option>
+            <option value="Premier 3 FG">Premier 3 FG</option>
+            <option value="ULTRA PRO CAGE">ULTRA PRO CAGE</option>
+            <option value="KING TOP IT">KING TOP IT</option>
+            <option value="Sala Striker">Sala Striker</option>
+            <option value="ULTRA ULTIMATE CAGE">ULTRA ULTIMATE CAGE</option>
+            <option value="Continental Sky V1">Continental Sky V1</option>
+            <option value="MORELIA II CLUB">MORELIA II CLUB</option>
+            <option value="Fs Reactive 2402">Fs Reactive 2402</option>
+            <option value="LUNAR GATO II">LUNAR GATO II</option>
+          </select>
+        </label>
+
+        {/* Category (Sole Type) Filter */}
+        <label className="flex flex-col gap-2 text-sm text-gray-600">
+          <span className="font-semibold">Tipo de Suela</span>
+          <select
+            value={tempFilters.category || 'all'}
+            onChange={handleInput('category')}
+            className="rounded border border-gray-300 px-3 py-2 text-gray-800 focus:border-black focus:outline-none"
+          >
+            <option value="all">Todas</option>
+            <option value="Firm Ground">Firm Ground</option>
+            <option value="Turf">Turf</option>
+            <option value="TURF">TURF</option>
+            <option value="INDOOR">INDOOR</option>
+            <option value="Indoor Court">Indoor Court</option>
+            <option value="Híbrido">Híbrido</option>
+          </select>
+        </label>
+
+        {/* Size Filter */}
+        <label className="flex flex-col gap-2 text-sm text-gray-600">
+          <span className="font-semibold">Talla</span>
+          <select
+            value={tempFilters.size || 'all'}
+            onChange={handleInput('size')}
+            className="rounded border border-gray-300 px-3 py-2 text-gray-800 focus:border-black focus:outline-none"
+          >
+            <option value="all">Todas</option>
+            <option value="40">40</option>
+            <option value="40.5">40.5</option>
+            <option value="41">41</option>
+            <option value="41.5">41.5</option>
+            <option value="42">42</option>
+            <option value="42.5">42.5</option>
+            <option value="43">43</option>
+            <option value="43.5">43.5</option>
+            <option value="44">44</option>
           </select>
         </label>
       </div>
 
-      <label className="flex items-center gap-2 text-sm text-gray-600">
-        <span>Orden</span>
-        <select
-          value={filters.sort}
-          onChange={handleInput('sort')}
-          className="rounded border border-gray-300 px-3 py-2 text-gray-800 focus:border-black focus:outline-none"
+      {/* Price Range Slider */}
+      <div className="space-y-4 mb-6">
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-semibold text-gray-600">Rango de Precio</span>
+          <span className="text-sm font-bold text-gray-900">
+            S/ {tempFilters.minPrice || 0} - S/ {tempFilters.maxPrice || 1000}
+          </span>
+        </div>
+
+        <div className="space-y-3">
+          {/* Min Price Slider */}
+          <div className="flex items-center gap-3">
+            <label className="text-xs text-gray-500 w-12">Mín:</label>
+            <input
+              type="range"
+              min="0"
+              max="1000"
+              step="10"
+              value={tempFilters.minPrice || 0}
+              onChange={handlePriceChange('minPrice')}
+              className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              style={{ accentColor: 'black' }}
+            />
+            <span className="text-xs font-semibold text-gray-700 w-16 text-right">S/ {tempFilters.minPrice || 0}</span>
+          </div>
+
+          {/* Max Price Slider */}
+          <div className="flex items-center gap-3">
+            <label className="text-xs text-gray-500 w-12">Máx:</label>
+            <input
+              type="range"
+              min="0"
+              max="1000"
+              step="10"
+              value={tempFilters.maxPrice || 1000}
+              onChange={handlePriceChange('maxPrice')}
+              className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              style={{ accentColor: 'black' }}
+            />
+            <span className="text-xs font-semibold text-gray-700 w-16 text-right">S/ {tempFilters.maxPrice || 1000}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Sort Filter */}
+      <div className="mb-6">
+        <label className="flex flex-col gap-2 text-sm text-gray-600">
+          <span className="font-semibold">Ordenar por</span>
+          <select
+            value={tempFilters.sort || 'newest'}
+            onChange={handleInput('sort')}
+            className="rounded border border-gray-300 px-3 py-2 text-gray-800 focus:border-black focus:outline-none"
+          >
+            <option value="newest">Novedades</option>
+            <option value="price-asc">Precio (menor a mayor)</option>
+            <option value="price-desc">Precio (mayor a menor)</option>
+          </select>
+        </label>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex gap-3">
+        <button
+          onClick={handleApplyFilters}
+          className="flex-1 bg-black text-white font-bold uppercase text-sm tracking-wider px-6 py-3 rounded-lg hover:bg-gray-800 transition-all"
         >
-          <option value="newest">Novedades</option>
-          <option value="price-asc">Precio (menor a mayor)</option>
-          <option value="price-desc">Precio (mayor a menor)</option>
-        </select>
-      </label>
+          Aplicar Filtros
+        </button>
+        <button
+          onClick={handleResetFilters}
+          className="px-6 py-3 border-2 border-gray-300 text-gray-700 font-bold uppercase text-sm tracking-wider rounded-lg hover:border-black hover:text-black transition-all"
+        >
+          Limpiar
+        </button>
+      </div>
     </section>
   );
-};
-
-export default FiltersBar;
+}

@@ -10,8 +10,14 @@ const normalize = (value: number, min: number, max: number) => {
 };
 
 export const MapView = ({ listings }: MapViewProps) => {
-  const latitudes = listings.map((item) => item.latitude);
-  const longitudes = listings.map((item) => item.longitude);
+  // Filter out listings without location data
+  const listingsWithLocation = listings.filter(
+    (item): item is Listing & { latitude: number; longitude: number } =>
+      item.latitude !== undefined && item.longitude !== undefined
+  );
+
+  const latitudes = listingsWithLocation.map((item) => item.latitude);
+  const longitudes = listingsWithLocation.map((item) => item.longitude);
   const latMin = Math.min(...latitudes, -12.07);
   const latMax = Math.max(...latitudes, -12.05);
   const lonMin = Math.min(...longitudes, -77.09);
@@ -21,7 +27,7 @@ export const MapView = ({ listings }: MapViewProps) => {
     <div className="overflow-hidden rounded-2xl bg-white shadow-lg">
       <div className="relative h-[360px] w-full overflow-hidden bg-gradient-to-br from-primary/10 via-white to-secondary/20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,#00C8E320,transparent_35%),radial-gradient(circle_at_80%_20%,#007BFF20,transparent_30%),radial-gradient(circle_at_40%_80%,#007BFF18,transparent_30%)]" />
-        {listings.map((listing) => {
+        {listingsWithLocation.map((listing) => {
           const top = 100 - normalize(listing.latitude, latMin, latMax) * 100;
           const left = normalize(listing.longitude, lonMin, lonMax) * 100;
 

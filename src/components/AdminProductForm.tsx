@@ -7,6 +7,10 @@ const AdminProductForm = () => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
+    const [marca, setMarca] = useState('');
+    const [modelo, setModelo] = useState('');
+    const [tipoSuela, setTipoSuela] = useState('');
+    const [tallas, setTallas] = useState('');
     const [image, setImage] = useState<File | null>(null);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
@@ -42,6 +46,11 @@ const AdminProductForm = () => {
                 .getPublicUrl(filePath);
 
             // 3. Insert into Database
+            // Convert tallas from comma-separated string to array
+            const tallasArray = tallas
+                ? tallas.split(',').map(t => t.trim()).filter(t => t.length > 0)
+                : [];
+
             const { error: insertError } = await supabase
                 .from('zapatillas')
                 .insert([
@@ -49,8 +58,10 @@ const AdminProductForm = () => {
                         name,
                         price: parseFloat(price),
                         description,
-                        // ✅ CORRECCIÓN AQUÍ:
-                        // Envolvemos la URL en corchetes [] para que sea un Array válido
+                        marca: marca || null,
+                        modelo: modelo || null,
+                        tipo_suela: tipoSuela || null,
+                        tallas: tallasArray.length > 0 ? tallasArray : null,
                         image_url: [publicUrl],
                     },
                 ]);
@@ -68,6 +79,10 @@ const AdminProductForm = () => {
             setName('');
             setPrice('');
             setDescription('');
+            setMarca('');
+            setModelo('');
+            setTipoSuela('');
+            setTallas('');
             setImage(null);
             // Reset file input manually via ID or ref if needed
             const fileInput = document.getElementById('file-input') as HTMLInputElement;
@@ -127,6 +142,52 @@ const AdminProductForm = () => {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Detalles del producto..."
                     />
+                </div>
+
+                {/* New Category Fields */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Marca</label>
+                    <input
+                        type="text"
+                        value={marca}
+                        onChange={(e) => setMarca(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ej: Nike, Adidas, Puma"
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Modelo</label>
+                    <input
+                        type="text"
+                        value={modelo}
+                        onChange={(e) => setModelo(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ej: Mercurial, Predator"
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Suela</label>
+                    <input
+                        type="text"
+                        value={tipoSuela}
+                        onChange={(e) => setTipoSuela(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ej: FG, AG, SG"
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Tallas Disponibles</label>
+                    <input
+                        type="text"
+                        value={tallas}
+                        onChange={(e) => setTallas(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ej: 38, 39, 40, 41, 42"
+                    />
+                    <p className="mt-1 text-xs text-gray-500">Separa las tallas con comas</p>
                 </div>
 
                 <div>

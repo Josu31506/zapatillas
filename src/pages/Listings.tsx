@@ -1,108 +1,139 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import ProductCard from '../components/ProductCard';
+import FiltersBar from '../components/FiltersBar';
+import { useProducts } from '../hooks/useProducts';
 import { Listing } from '../types';
 
 export const Listings = () => {
-  const [listings, setListings] = useState<Listing[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [searchParams] = useSearchParams();
+  const searchFromUrl = searchParams.get('search') || '';
 
+  const [filters, setFilters] = useState({
+    search: searchFromUrl,
+    brand: 'all',
+    category: 'all',
+    model: 'all',
+    size: 'all',
+    minPrice: 0,
+    maxPrice: 1000,
+    sort: 'newest',
+  });
+
+  // Update search filter when URL search param changes
   useEffect(() => {
-    const fetchSneakers = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('zapatillas')
-          .select('*')
-          .order('created_at', { ascending: false });
+    setFilters(prev => ({ ...prev, search: searchFromUrl }));
+  }, [searchFromUrl]);
 
-        if (error) throw error;
+  const { products, loading, error } = useProducts(filters);
 
-        if (data) {
-          const formattedData = data.map((item: any) => {
-            // Handle image_url
-            let mainImage = item.image_url;
-            if (Array.isArray(item.image_url) && item.image_url.length > 0) {
-              mainImage = item.image_url[0];
-            } else if (Array.isArray(item.image_url) && item.image_url.length === 0) {
-              mainImage = "https://via.placeholder.com/300";
-            }
+  // Format products to match Listing type
+  const listings: Listing[] = products.map((item: any) => {
+    let mainImage = item.image_url;
+    if (Array.isArray(item.image_url) && item.image_url.length > 0) {
+      mainImage = item.image_url[0];
+    } else if (Array.isArray(item.image_url) && item.image_url.length === 0) {
+      mainImage = "https://via.placeholder.com/300";
+    }
 
-            return {
-              id: item.id,
-              name: item.name || item.title, // ProductCard expects 'name'
-              price: item.price,
-              image: mainImage || item.image,
-              originalPrice: item.originalPrice, // Pass if available
-              discount: item.discount // Pass if available
-            };
-          });
-
-          setListings(formattedData);
-        }
-      } catch (err) {
-        console.error('Error:', err);
-      } finally {
-        setLoading(false);
-      }
+    return {
+      id: item.id,
+      name: item.name || item.title,
+      title: item.title || item.name,
+      description: item.description || '',
+      price: item.price,
+      image: mainImage || item.image,
+      originalPrice: item.originalPrice,
+      discount: item.discount
     };
-
-    fetchSneakers();
-  }, []);
+  });
 
   if (loading) return <div className="p-10 text-center">Cargando zapatillas...</div>;
 
   return (
-    <section className="bg-white min-h-screen pb-20">
-      {/* 1. Header Banner del Catalogo */}
-      <div className="relative bg-black text-white py-16 px-4 md:py-24 mb-8 overflow-hidden">
-        <div className="absolute inset-0 bg-neutral-900 z-0"></div>
-        {/* Cyber Gradient */}
-        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-brand-cyan/10 to-transparent z-0"></div>
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-10">
 
-        <div className="relative container mx-auto z-10 text-center md:text-left">
-          <span className="text-brand-cyan font-bold tracking-widest uppercase text-xs md:text-sm mb-2 block">
-            Novedades de Temporada
-          </span>
-          <h1 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter mb-4">
-            COLECCIÓN 2025
-          </h1>
-          <p className="text-gray-400 max-w-xl text-sm md:text-base">
-            Explora la última tecnología en calzado de fútbol. Rendimiento profesional para todos los niveles.
-          </p>
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4">
-        {/* 2. Barra de Filtros (Mock) */}
-        <div className="flex flex-col md:flex-row items-center justify-between border-b border-gray-200 pb-4 mb-8 gap-4">
-          <div className="flex items-center gap-4 overflow-x-auto no-scrollbar w-full md:w-auto">
-            <button className="whitespace-nowrap px-4 py-2 bg-black text-white text-xs font-bold uppercase rounded-full">Todo</button>
-            <button className="whitespace-nowrap px-4 py-2 bg-gray-100 text-gray-600 text-xs font-bold uppercase rounded-full hover:bg-gray-200">Botas de Fútbol</button>
-            <button className="whitespace-nowrap px-4 py-2 bg-gray-100 text-gray-600 text-xs font-bold uppercase rounded-full hover:bg-gray-200">Zapatillas Futsal</button>
-            <button className="whitespace-nowrap px-4 py-2 bg-gray-100 text-gray-600 text-xs font-bold uppercase rounded-full hover:bg-gray-200">Ofertas</button>
+        {/* Header Section with Admin Button */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+          <div className="space-y-2">
+            <h1 className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter text-gray-900">
+              Catálogo de Zapatillas
+            </h1>
+            <p className="text-gray-600">
+              Explora nuestra colección completa de {listings.length} productos
+            </p>
           </div>
 
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <span>{listings.length} Productos</span>
-            <span className="text-gray-300">|</span>
-            <select className="bg-transparent font-bold text-gray-900 border-none outline-none cursor-pointer">
-              <option>Más recientes</option>
-              <option>Precio: Menor a Mayor</option>
-              <option>Precio: Mayor a Menor</option>
-            </select>
+          {/* Prominent Admin Button */}
+          <a
+            href="/admin-dashboard"
+            className="inline-flex items-center gap-2 bg-black text-brand-cyan font-bold uppercase text-sm tracking-wider px-6 py-4 rounded-full hover:bg-gray-800 hover:scale-105 transition-all shadow-lg hover:shadow-xl"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+            Agregar Zapatillas
+          </a>
+        </div>
+
+        {/* Filters Bar */}
+        <FiltersBar filters={filters} onChange={setFilters} />
+
+        {/* Product Grid */}
+        {!loading && listings.length > 0 && (
+          <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4">
+            {listings.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
           </div>
-        </div>
-
-        <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {listings.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-
-        {listings.length === 0 && (
-          <p className="text-center text-slate-500">No hay zapatillas registradas en Supabase todavía.</p>
         )}
+
+        {/* Empty State */}
+        {!loading && listings.length === 0 && (
+          <div className="text-center py-20 bg-white rounded-2xl shadow-sm">
+            <div className="max-w-md mx-auto space-y-4">
+              <svg
+                className="mx-auto w-24 h-24 text-gray-300"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                />
+              </svg>
+              <h3 className="text-xl font-bold text-gray-900">
+                No hay productos aún
+              </h3>
+              <p className="text-gray-600">
+                Comienza agregando tu primer par de zapatillas
+              </p>
+              <a
+                href="/admin-dashboard"
+                className="inline-block bg-black text-white font-bold px-8 py-3 rounded-full hover:bg-gray-800 transition-all"
+              >
+                Agregar Producto
+              </a>
+            </div>
+          </div>
+        )}
+
       </div>
-    </section>
+    </div>
   );
 };

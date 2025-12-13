@@ -7,17 +7,22 @@ const CatalogPage = () => {
   const [filters, setFilters] = useState({
     search: '',
     brand: 'all',
+    category: 'all',
+    model: 'all',
+    size: 'all',
+    minPrice: 0,
+    maxPrice: 1000,
     sort: 'newest',
   });
   const { products, loading, error } = useProducts(filters);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       <div>
         <p className="text-sm uppercase tracking-wide text-gray-500">Colección</p>
         <h1 className="text-3xl font-semibold text-gray-900">Catálogo de zapatillas</h1>
-        <p className="mt-2 text-gray-600">
-          Explora el inventario de modelos publicados desde la base de datos de Supabase.
+        <p className="mt-1 text-gray-600">
+          Explora nuestra colección completa de 5 productos
         </p>
       </div>
 

@@ -16,8 +16,8 @@ const ProductCard = ({ product }) => {
   return (
     <Link to={`/product/${id}`} className="group block h-full bg-white transition-all hover:shadow-lg rounded-sm overflow-hidden border border-transparent hover:border-gray-200">
 
-      {/* Image Container - Aspect Ratio 4:3 (Compact) */}
-      <div className="relative aspect-[4/3] w-full bg-[#f9f9f9] flex items-center justify-center overflow-hidden mb-2">
+      {/* Image Container - Square Aspect Ratio */}
+      <div className="relative aspect-square w-full bg-gray-50 flex items-center justify-center overflow-hidden p-4">
 
         {/* Brand Logo (Top Right) - Smaller */}
         <div className="absolute top-2 right-2 z-10 opacity-60 text-slate-900">
@@ -33,19 +33,19 @@ const ProductCard = ({ product }) => {
         <img
           src={image || 'https://via.placeholder.com/300x300?text=Sin+Foto'}
           alt={name}
-          className="h-[85%] w-[85%] object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
       </div>
 
-      {/* Info Container - Compact Text */}
-      <div className="px-2 pb-3">
-        <h3 className="text-xs font-bold text-slate-900 line-clamp-2 min-h-[32px] leading-tight uppercase mb-1">
+      {/* Info Container - Extra Large Text */}
+      <div className="px-4 pb-5 pt-4">
+        <h3 className="text-xl font-bold text-slate-900 line-clamp-2 min-h-[60px] leading-tight mb-3">
           {name}
         </h3>
 
         <div className="flex flex-col items-start">
-          <span className="text-sm font-black text-blue-600 tracking-tight">
-            {formatMoney(price)}
+          <span className="text-4xl font-black text-gray-900 tracking-tight">
+            S/ {price}
           </span>
         </div>
       </div>

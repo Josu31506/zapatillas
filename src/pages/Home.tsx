@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import Hero from '../components/Hero';
-import Carousel from '../components/Carousel';
+import InfoBanner from '../components/InfoBanner';
 import { supabase } from '../lib/supabaseClient';
 
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+}
+
 export const Home = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -59,115 +65,179 @@ export const Home = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Banner - Renderizado UNA SOLA VEZ */}
-      <Hero />
+      {/* Info Banner */}
+      <InfoBanner />
 
-      {/* Main Content - Alineado a la izquierda */}
-      <div className="bg-white pb-20">
+      {/* Main Products Section */}
+      <div className="relative bg-gradient-to-b from-white via-gray-50 to-white py-20 md:py-28">
+        {/* Decorative Background */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 opacity-5 rounded-full blur-3xl"></div>
 
-        {/* SECTION 1: NOVEDADES */}
-        {!loading && products.length > 0 && (
-          <div className="container mx-auto px-4 py-8">
-            <div className="flex items-end justify-between mb-6">
-              <h2 className="text-3xl font-black uppercase italic tracking-tighter text-gray-900 text-shadow-sm">
-                Últimas Novedades
-              </h2>
-              <a href="/catalogo" className="text-xs font-bold uppercase tracking-wider underline hover:text-brand-cyan">Ver todo</a>
+        <div className="container mx-auto px-6 md:px-12 lg:px-16">
+
+          {/* Section Header */}
+          <div className="mb-14 text-center max-w-3xl mx-auto">
+            {/* Eyebrow Text */}
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="w-12 h-px bg-gradient-to-r from-transparent via-brand-cyan to-transparent"></div>
+              <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-gray-500 uppercase">
+                Lo Mejor para Ti
+              </span>
+              <div className="w-12 h-px bg-gradient-to-r from-transparent via-brand-cyan to-transparent"></div>
             </div>
 
-            {/* Carousel con NOVEDADES */}
-            <Carousel title="" products={products.slice(0, 8)} />
-          </div>
-        )}
-
-        {/* PROMO BANNER INTERMEDIO */}
-        <div className="w-full bg-black text-white py-16 my-10 relative overflow-hidden">
-          {/* Background Decoration */}
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-cyan/20 blur-[100px] rounded-full transform translate-x-1/2"></div>
-
-          <div className="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="max-w-xl">
-              <span className="text-brand-cyan font-bold tracking-widest uppercase text-xs mb-2 block">Solo por tiempo limitado</span>
-              <h3 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter leading-none mb-4">
-                PACK ELITE <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-white">VELOCIDAD TOTAL</span>
-              </h3>
-              <p className="text-gray-400 mb-6">Descubre la colección diseñada para los jugadores más rápidos del campo.</p>
-              <a href="/catalogo" className="inline-block bg-white text-black font-black uppercase text-sm px-8 py-3 rounded-full hover:scale-105 transition-transform">
-                Comprar Ahora
-              </a>
-            </div>
-            {/* Imagen decorativa */}
-            {products.length > 0 && products[0]?.image && (
-              <div className="w-64 h-64 md:w-80 md:h-80 relative">
-                <img
-                  src={products[0].image}
-                  alt="Promo Shoe"
-                  className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,255,209,0.3)] transform -rotate-12 hover:rotate-0 transition-transform duration-700"
-                />
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* SECTION 2: MÁS VENDIDOS (Grid) */}
-        {!loading && products.length > 0 && (
-          <div className="container mx-auto px-4 py-8">
-            <h2 className="text-3xl font-black uppercase italic tracking-tighter text-gray-900 mb-8 border-b border-gray-200 pb-2">
-              Más Vendidos
+            {/* Main Heading */}
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase italic tracking-tighter text-gray-900 mb-4 leading-none">
+              Productos Destacados
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 justify-items-start">
-              {products.slice(0, 10).map((product) => (
-                <a
-                  key={product.id}
-                  href={`/product/${product.id}`}
-                  className="group block bg-white border border-transparent hover:border-gray-100 rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-300 w-full"
-                >
-                  {/* Product Image */}
-                  <div className="relative aspect-square bg-gray-50 flex items-center justify-center overflow-hidden">
-                    <span className="absolute top-2 left-2 bg-black text-white text-[10px] font-bold px-2 py-0.5 uppercase tracking-wide z-10">Top Ventas</span>
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-[85%] h-[85%] object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500"
-                    />
-                  </div>
 
-                  {/* Product Info */}
-                  <div className="p-4">
-                    <h3 className="text-xs font-bold text-gray-900 line-clamp-2 min-h-[32px] mb-2 uppercase tracking-tight">
-                      {product.name}
-                    </h3>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-lg font-black text-blue-600">
-                        S/ {product.price}
-                      </span>
-                      {product.originalPrice && (
-                        <span className="text-xs text-gray-400 line-through decoration-red-500">S/ {product.originalPrice}</span>
-                      )}
+            {/* Description */}
+            <p className="text-gray-600 text-base md:text-lg font-medium leading-relaxed">
+              Descubre nuestra selección exclusiva de zapatillas de fútbol diseñadas para máximo rendimiento
+            </p>
+          </div>
+
+          {/* Products Grid */}
+          {!loading && products.length > 0 && (
+            <>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-6 md:gap-8 mb-16">
+                {products.slice(0, 4).map((product, index) => (
+                  <a
+                    key={product.id}
+                    href={`/product/${product.id}`}
+                    className="group block bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 border-gray-100 hover:border-brand-cyan transform hover:-translate-y-2 animate-fade-in"
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    {/* Product Image */}
+                    <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-white flex items-center justify-center overflow-hidden p-6">
+                      {/* Hover Glow Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-brand-cyan/0 to-brand-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="relative z-10 w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700"
+                      />
                     </div>
-                  </div>
+
+                    {/* Product Info */}
+                    <div className="p-5 space-y-3 bg-white">
+                      <h3 className="text-xl font-bold text-gray-900 line-clamp-2 min-h-[60px] group-hover:text-brand-cyan transition-colors leading-tight">
+                        {product.name}
+                      </h3>
+
+                      <div className="flex items-center justify-between">
+                        <span className="text-4xl font-black text-gray-900">
+                          S/ {product.price}
+                        </span>
+
+                        {/* Arrow Icon */}
+                        <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-brand-cyan flex items-center justify-center transition-colors duration-300">
+                          <svg
+                            className="w-4 h-4 text-gray-600 group-hover:text-white transform group-hover:translate-x-0.5 transition-all duration-300"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              {/* View All Products Button */}
+              <div className="text-center">
+                <a
+                  href="/catalogo"
+                  className="group inline-flex items-center gap-4 bg-black text-white font-bold uppercase text-sm tracking-[0.25em] px-12 py-5 hover:bg-gray-800 hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl"
+                >
+                  <span>Ver Catálogo Completo</span>
+                  <svg
+                    className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
                 </a>
-              ))}
+
+                {/* Stats Below Button */}
+                <div className="mt-8 flex items-center justify-center gap-8 text-sm text-gray-500">
+                  <div className="text-center">
+                    <div className="text-2xl font-black text-gray-900 mb-1">{products.length}+</div>
+                    <div className="font-semibold">Productos</div>
+                  </div>
+                  <div className="w-px h-12 bg-gray-300"></div>
+                  <div className="text-center">
+                    <div className="text-2xl font-black text-gray-900 mb-1">100%</div>
+                    <div className="font-semibold">Auténticos</div>
+                  </div>
+                  <div className="w-px h-12 bg-gray-300"></div>
+                  <div className="text-center">
+                    <div className="text-2xl font-black text-gray-900 mb-1">24/7</div>
+                    <div className="font-semibold">Soporte</div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Loading State */}
+          {loading && (
+            <div className="py-32 text-center">
+              <div className="inline-block animate-spin rounded-full h-16 w-16 border-4 border-gray-200 border-t-brand-cyan mb-6"></div>
+              <p className="text-gray-500 font-medium text-lg">Cargando productos...</p>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Loading State */}
-        {loading && (
-          <div className="px-4 py-20 text-center">
-            <p className="text-gray-500">Cargando productos...</p>
-          </div>
-        )}
+          {/* Empty State */}
+          {!loading && products.length === 0 && (
+            <div className="py-32 text-center bg-white rounded-3xl shadow-xl border-2 border-gray-100">
+              <div className="max-w-md mx-auto space-y-6 px-6">
+                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-12 h-12 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  No hay productos disponibles
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Aún no hay productos en el catálogo. Comienza agregando tu primera zapatilla.
+                </p>
+                <a
+                  href="/admin-dashboard"
+                  className="inline-flex items-center gap-2 bg-black text-white font-bold px-8 py-4 hover:bg-gray-800 transition-all hover:scale-105 shadow-lg"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  Ir al Panel de Admin
+                </a>
+              </div>
+            </div>
+          )}
 
-        {/* Empty State */}
-        {!loading && products.length === 0 && (
-          <div className="px-4 py-20 text-center">
-            <p className="text-gray-500 mb-4">No hay productos disponibles</p>
-            <a href="/admin-dashboard" className="text-blue-500 underline">
-              Ir al panel de administración
-            </a>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );
