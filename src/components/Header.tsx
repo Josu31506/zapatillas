@@ -22,11 +22,12 @@ const Header = () => {
                     {/* 1. LOGO + TÍTULO (Bloque Sólido) */}
                     <Link to="/" className="flex items-center gap-2 sm:gap-3 md:gap-4 hover:opacity-80 transition-opacity group flex-shrink-0 w-full md:w-auto justify-center md:justify-start">
                         {/* Logo Icono */}
-                        <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 bg-black rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="sm:w-6 sm:h-6 md:w-7 md:h-7">
-                                <circle cx="12" cy="12" r="9" stroke="#00FFD1" strokeWidth="2" />
-                                <path d="M12 8v8M8 12h8" stroke="#00FFD1" strokeWidth="2" strokeLinecap="round" />
-                            </svg>
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <img
+                                src="/futbolt-logo.png"
+                                alt="FUT-BOLT Logo"
+                                className="w-full h-full object-contain"
+                            />
                         </div>
                         {/* Texto del Título */}
                         <div className="flex flex-col justify-center">
@@ -38,6 +39,7 @@ const Header = () => {
                             </span>
                         </div>
                     </Link>
+
 
                     {/* 2. BUSCADOR GIGANTE (Ocupa todo el resto) */}
                     <div className="flex-1 w-full relative">
