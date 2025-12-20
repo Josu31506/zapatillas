@@ -33,7 +33,19 @@ export const useProducts = (filters = defaultFilters) => {
       }
 
       if (filters.category && filters.category !== 'all') {
-        query = query.eq('tipo_suela', filters.category);
+        // Normalize category filtering to handle variants
+        const category = filters.category.toLowerCase();
+
+        if (category === 'turf') {
+          // Match both "Turf" and "TURF"
+          query = query.or('tipo_suela.eq.Turf,tipo_suela.eq.TURF');
+        } else if (category === 'indoor') {
+          // Match "INDOOR" and "Indoor Court"
+          query = query.or('tipo_suela.eq.INDOOR,tipo_suela.eq.Indoor Court');
+        } else {
+          // For other categories, match exactly
+          query = query.eq('tipo_suela', filters.category);
+        }
       }
 
       if (filters.model && filters.model !== 'all') {
