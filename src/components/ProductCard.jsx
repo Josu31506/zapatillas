@@ -44,7 +44,7 @@ const ProductCard = ({ product }) => {
         </h3>
 
         <div className="flex flex-col items-start">
-          <span className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
+          <span className="text-xl sm:text-2xl md:text-3xl font-black text-gray-900 tracking-tight">
             S/ {price}
           </span>
         </div>
