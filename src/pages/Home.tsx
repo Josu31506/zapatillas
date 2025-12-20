@@ -127,7 +127,7 @@ export const Home = () => {
                       </h3>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-xl sm:text-2xl md:text-3xl font-black text-gray-900">
+                        <span className="text-lg sm:text-xl md:text-2xl font-black text-gray-900">
                           S/ {product.price}
                         </span>
 
