@@ -122,7 +122,7 @@ export const Home = () => {
 
                     {/* Product Info */}
                     <div className="p-4 sm:p-5 space-y-2 sm:space-y-3 bg-white">
-                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 line-clamp-2 min-h-[44px] sm:min-h-[56px] md:min-h-[60px] group-hover:text-brand-cyan transition-colors leading-tight">
+                      <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 line-clamp-2 min-h-[38px] sm:min-h-[44px] md:min-h-[52px] group-hover:text-brand-cyan transition-colors leading-tight">
                         {product.name}
                       </h3>
 
