@@ -5,7 +5,7 @@ const Layout = () => {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
       <Header />
-      <main className="mx-auto max-w-full px-4 py-4">
+      <main className="mx-auto max-w-full px-3 sm:px-4 py-3 md:py-4">
         <Outlet />
       </main>
     </div>
@@ -13,3 +13,4 @@ const Layout = () => {
 };
 
 export default Layout;
+

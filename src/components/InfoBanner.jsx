@@ -6,10 +6,11 @@ const InfoBanner = () => {
             <img
                 src="/info-banner.png"
                 alt="Envíos a todo el país, Entregas en estación, Pago contraentrega - FutBolt Shop"
-                className="w-full h-auto max-h-[200px] object-cover"
+                className="w-full h-auto max-h-[120px] sm:max-h-[150px] md:max-h-[200px] object-cover"
             />
         </div>
     );
 };
 
 export default InfoBanner;
+

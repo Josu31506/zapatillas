@@ -1,8 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './src/**/*.{ts,tsx}'],
+  content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
   theme: {
     extend: {
+      // Custom breakpoints for mobile-first responsive design
+      screens: {
+        'xs': '475px',   // Small mobile devices
+        'sm': '640px',   // Medium mobile devices
+        'md': '768px',   // Large mobile / Small tablets
+        'lg': '1024px',  // Tablets / Small desktop
+        'xl': '1280px',  // Desktop
+        '2xl': '1536px', // Large desktop
+      },
       colors: {
         primary: '#007BFF',
         secondary: '#00C8E3',
@@ -16,6 +25,12 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      // Add better spacing for mobile
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '128': '32rem',
       },
     },
   },
