@@ -1,9 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 a {
   @apply text-primary;
+}
+
+/* Custom animation for slow soccer ball spin */
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 10s linear infinite;
+  }
 }

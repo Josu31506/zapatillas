@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import FutBoltLogo from './FutBoltLogo';
 
 const Header = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -21,11 +22,7 @@ const Header = () => {
 
                     {/* 1. LOGO */}
                     <Link to="/" className="hover:opacity-80 transition-opacity group flex-shrink-0">
-                        <img
-                            src="/futbolt-header-logo.png"
-                            alt="FUT-BOLT Tienda de Futbol"
-                            className="h-12 sm:h-14 md:h-16 w-auto object-contain group-hover:scale-105 transition-transform"
-                        />
+                        <FutBoltLogo className="group-hover:scale-105 transition-transform" />
                     </Link>
 
                     {/* 2. BUSCADOR GIGANTE (Ocupa todo el resto) */}
