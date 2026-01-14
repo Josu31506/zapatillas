@@ -389,25 +389,22 @@ export const ProductDetails = () => {
                             )}
                         </div>
 
-                        {/* Sizes - Show all sizes 40-44 with strikethrough for unavailable */}
+                        {/* Sizes - Show available sizes from database */}
                         <div>
                             <h3 className="font-bold text-gray-900 mb-3">Tallas:</h3>
                             <div className="flex flex-wrap gap-2">
-                                {['40', '41', '42', '43', '44'].map((size) => {
-                                    const isAvailable = product.tallas?.includes(size);
-                                    return (
+                                {product.tallas && product.tallas.length > 0 ? (
+                                    product.tallas.map((size) => (
                                         <button
                                             key={size}
-                                            disabled={!isAvailable}
-                                            className={`px-4 py-2 border-2 rounded-lg font-semibold transition-all ${isAvailable
-                                                ? 'border-gray-300 hover:border-black hover:bg-black hover:text-white cursor-pointer'
-                                                : 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed line-through'
-                                                }`}
+                                            className="px-4 py-2 border-2 border-gray-300 hover:border-black hover:bg-black hover:text-white cursor-pointer rounded-lg font-semibold transition-all"
                                         >
                                             {size}
                                         </button>
-                                    );
-                                })}
+                                    ))
+                                ) : (
+                                    <p className="text-gray-500">No hay tallas disponibles</p>
+                                )}
                             </div>
                         </div>
 
