@@ -1,43 +1,54 @@
 const FutBoltLogo = ({ className = "" }) => {
     return (
-        <div className={`relative inline-block text-center ${className}`}>
-            {/* Rayo de fondo */}
+        <div className={`relative flex flex-col items-center ${className}`}>
+            {/* Rayo más pequeño y reubicado - detrás de la B */}
             <div
-                className="absolute -top-1/4 left-1/4 w-24 md:w-32 lg:w-36 h-40 md:h-48 lg:h-56 bg-yellow-400 -rotate-12 -z-10"
+                className="absolute top-0 left-[45%] w-10 md:w-12 lg:w-14 h-20 md:h-24 lg:h-28 bg-yellow-400 -translate-x-1/2 -rotate-12 -z-10"
                 style={{
-                    clipPath: 'polygon(60% 0, 100% 0, 60% 45%, 90% 45%, 20% 100%, 40% 50%, 10% 50%)'
+                    clipPath: 'polygon(70% 0, 100% 0, 60% 40%, 95% 40%, 15% 100%, 40% 55%, 5% 55%)'
                 }}
             />
 
             {/* Texto principal FUT-BOLT */}
-            <div className="relative z-10 flex items-center justify-center text-gray-600 font-black tracking-tighter leading-none uppercase text-4xl md:text-5xl lg:text-6xl">
-                <span>FUT</span>
-                <span className="mx-1 font-sans">-</span>
-                <span>B</span>
+            <div className="relative z-10 flex items-center justify-center">
+                <span className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-600 font-black tracking-tighter leading-none uppercase">
+                    FUT
+                </span>
+                <span className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-600 mx-1 relative -top-2">
+                    -
+                </span>
+                <span className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-600 font-black tracking-tighter leading-none uppercase">
+                    B
+                </span>
 
-                {/* Balón de Fútbol SVG */}
+                {/* Balón de Fútbol Realista SVG */}
                 <svg
-                    className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 mx-0.5 animate-spin-slow"
+                    className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 xl:w-[75px] xl:h-[75px] mx-1 animate-spin-slow"
                     viewBox="0 0 512 512"
                     xmlns="http://www.w3.org/2000/svg"
                 >
-                    <circle cx="256" cy="256" r="240" fill="white" stroke="black" strokeWidth="20" />
-                    <path d="M256,48 L200,160 L312,160 Z" fill="black" />
-                    <path d="M256,48 L256,10" stroke="black" strokeWidth="20" />
-                    <path d="M200,160 L100,140" stroke="black" strokeWidth="20" />
-                    <path d="M312,160 L412,140" stroke="black" strokeWidth="20" />
-                    <path d="M256,260 L180,360 L332,360 Z" fill="black" />
-                    <circle cx="256" cy="256" r="60" fill="black" />
-                    <path d="M205,230 L100,250" stroke="black" strokeWidth="20" />
-                    <path d="M307,230 L412,250" stroke="black" strokeWidth="20" />
-                    <path d="M256,316 L256,490" stroke="black" strokeWidth="20" />
+                    <circle cx="256" cy="256" r="245" fill="#ffffff" stroke="#1a1a1a" strokeWidth="15" />
+
+                    <g fill="#1a1a1a">
+                        <path d="M256,107.3 l-86.6,62.9 l33.1,101.9 h107 l33.1,-101.9 Z" />
+                        <path d="M256,107.3 L256,11" />
+                        <path d="M169.4,170.2 L78.2,140.6" />
+                        <path d="M342.6,170.2 L433.8,140.6" />
+                        <path d="M202.5,272.1 L123,381.4" />
+                        <path d="M309.5,272.1 L389,381.4" />
+                        <path d="M78.2,140.6 L11,233 L78.2,325.4 L169.4,295.8 L123,381.4 Z" />
+                        <path d="M433.8,140.6 L501,233 L433.8,325.4 L342.6,295.8 L389,381.4 Z" />
+                        <path d="M123,381.4 L256,478 L389,381.4 L309.5,272.1 h-107 Z" />
+                    </g>
                 </svg>
 
-                <span>LT</span>
+                <span className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-600 font-black tracking-tighter leading-none uppercase">
+                    LT
+                </span>
             </div>
 
             {/* Etiqueta negra de abajo */}
-            <div className="relative z-20 bg-black text-white text-[8px] md:text-[10px] lg:text-xs px-3 md:px-4 py-1 rounded inline-block tracking-widest -mt-2 ml-12 md:ml-16 lg:ml-20 shadow-md font-sans">
+            <div className="relative z-20 bg-[#1a1a1a] text-white text-[10px] md:text-xs lg:text-sm px-4 md:px-5 py-1 rounded font-sans font-bold tracking-wide -mt-3 md:-mt-4 ml-16 md:ml-20 lg:ml-24 shadow-md">
                 TIENDA DE FUTBOL
             </div>
         </div>
