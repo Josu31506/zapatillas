@@ -393,7 +393,7 @@ export const ProductDetails = () => {
                         <div>
                             <h3 className="font-bold text-gray-900 mb-3">Tallas:</h3>
                             <div className="flex flex-wrap gap-2">
-                                {['38', '39', '40', '41', '42', '43', '44', '45'].map((size) => {
+                                {['40', '41', '42', '43'].map((size) => {
                                     const isAvailable = product.tallas?.includes(size);
                                     return (
                                         <button
