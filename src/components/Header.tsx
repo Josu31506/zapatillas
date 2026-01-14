@@ -22,7 +22,7 @@ const Header = () => {
                     {/* 1. LOGO */}
                     <Link to="/" className="hover:opacity-80 transition-opacity group flex-shrink-0">
                         <img
-                            src="/futbolt-header-logo.png"
+                            src="/futbolt-logo-clean.png"
                             alt="FUT-BOLT - Tienda de Futbol"
                             className="h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 w-auto object-contain group-hover:scale-105 transition-transform"
                         />
