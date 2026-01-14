@@ -24,7 +24,7 @@ const Header = () => {
                         <img
                             src="/futbolt-logo-clean.png"
                             alt="FUT-BOLT - Tienda de Futbol"
-                            className="h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 w-auto object-contain group-hover:scale-105 transition-transform"
+                            className="h-8 sm:h-12 md:h-14 lg:h-16 xl:h-18 w-auto object-contain group-hover:scale-105 transition-transform"
                         />
                     </Link>
 
