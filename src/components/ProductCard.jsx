@@ -1,12 +1,19 @@
 import { Link } from 'react-router-dom';
 
 // Function to format product name: first letter uppercase, rest lowercase
+// Special handling for Roman numerals (II, III, IV, etc.)
 const formatProductName = (name) => {
   if (!name) return '';
   return name
     .toLowerCase()
     .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .map(word => {
+      // Check if word is a Roman numeral
+      if (/^(i{1,3}|iv|v|vi{0,3}|ix|x)$/i.test(word)) {
+        return word.toUpperCase();
+      }
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
     .join(' ');
 };
 

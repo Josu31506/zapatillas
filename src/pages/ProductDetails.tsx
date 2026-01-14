@@ -15,6 +15,23 @@ interface Product {
     image_url: string[]; // Array of image URLs
 }
 
+// Function to format product name: first letter uppercase, rest lowercase  
+// Special handling for Roman numerals (II, III, IV, etc.)
+const formatProductName = (name: string) => {
+    if (!name) return '';
+    return name
+        .toLowerCase()
+        .split(' ')
+        .map(word => {
+            // Check if word is a Roman numeral
+            if (/^(i{1,3}|iv|v|vi{0,3}|ix|x)$/i.test(word)) {
+                return word.toUpperCase();
+            }
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join(' ');
+};
+
 export const ProductDetails = () => {
     const { id } = useParams<{ id: string }>();
     const [product, setProduct] = useState<Product | null>(null);
@@ -312,8 +329,8 @@ export const ProductDetails = () => {
                             )}
                         </div>
 
-                        <h1 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-gray-900 leading-none">
-                            {product.title || product.name}
+                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-gray-900 leading-none">
+                            {formatProductName(product.title || product.name)}
                         </h1>
 
                         <div className="flex items-baseline gap-4">
@@ -418,8 +435,8 @@ export const ProductDetails = () => {
                                                 onClick={() => handleSetCover(imageUrl)}
                                                 disabled={uploadingCover || index === 0}
                                                 className={`relative aspect-square rounded-lg overflow-hidden border-3 transition-all ${index === 0
-                                                        ? 'border-yellow-400 ring-2 ring-yellow-400 ring-offset-2'
-                                                        : 'border-gray-200 hover:border-yellow-400 hover:scale-105'
+                                                    ? 'border-yellow-400 ring-2 ring-yellow-400 ring-offset-2'
+                                                    : 'border-gray-200 hover:border-yellow-400 hover:scale-105'
                                                     } ${uploadingCover ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                                             >
                                                 <img
