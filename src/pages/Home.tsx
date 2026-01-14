@@ -9,6 +9,16 @@ interface Product {
   image: string;
 }
 
+// Function to format product name: first letter uppercase, rest lowercase
+const formatProductName = (name: string) => {
+  if (!name) return '';
+  return name
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
 export const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -122,8 +132,8 @@ export const Home = () => {
 
                     {/* Product Info */}
                     <div className="p-4 sm:p-5 space-y-2 sm:space-y-3 bg-white">
-                      <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 line-clamp-2 min-h-[38px] sm:min-h-[44px] md:min-h-[52px] group-hover:text-brand-cyan transition-colors leading-tight capitalize">
-                        {product.name}
+                      <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 line-clamp-2 min-h-[38px] sm:min-h-[44px] md:min-h-[52px] group-hover:text-brand-cyan transition-colors leading-tight">
+                        {formatProductName(product.name)}
                       </h3>
 
                       <div className="flex items-center justify-between">

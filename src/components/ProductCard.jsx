@@ -1,5 +1,15 @@
 import { Link } from 'react-router-dom';
 
+// Function to format product name: first letter uppercase, rest lowercase
+const formatProductName = (name) => {
+  if (!name) return '';
+  return name
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
 const ProductCard = ({ product }) => {
   const { id, name, price, image, originalPrice, discount } = product;
 
@@ -39,8 +49,8 @@ const ProductCard = ({ product }) => {
 
       {/* Info Container - Responsive Text Sizes */}
       <div className="px-3 sm:px-4 pb-4 sm:pb-5 pt-3 sm:pt-4">
-        <h3 className="text-sm sm:text-base md:text-lg font-bold text-slate-900 line-clamp-2 min-h-[38px] sm:min-h-[44px] md:min-h-[52px] leading-tight mb-2 sm:mb-3 capitalize">
-          {name}
+        <h3 className="text-sm sm:text-base md:text-lg font-bold text-slate-900 line-clamp-2 min-h-[38px] sm:min-h-[44px] md:min-h-[52px] leading-tight mb-2 sm:mb-3">
+          {formatProductName(name)}
         </h3>
 
         <div className="flex flex-col items-start">
