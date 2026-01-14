@@ -122,7 +122,7 @@ export const Home = () => {
                   <a
                     key={product.id}
                     href={`/product/${product.id}`}
-                    className="group block bg-white rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 border-gray-100 hover:border-brand-cyan transform hover:-translate-y-2 animate-fade-in"
+                    className="group block bg-white rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 border-gray-100 hover:border-brand-cyan transform hover:-translate-y-2 animate-fade-in scale-[0.8] origin-center"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {/* Product Image */}
