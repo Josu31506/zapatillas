@@ -126,7 +126,7 @@ export const Home = () => {
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {/* Product Image */}
-                    <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-white flex items-center justify-center overflow-hidden p-4 sm:p-6">
+                    <div className="relative aspect-square bg-gray-100 rounded-t-xl overflow-hidden group-hover:opacity-90 transition-opacity max-h-[180px] sm:max-h-[220px] md:max-h-[260px] flex items-center justify-center p-4 sm:p-6">
                       {/* Hover Glow Effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-brand-cyan/0 to-brand-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
