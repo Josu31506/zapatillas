@@ -5,7 +5,7 @@ const PromoBanner = () => {
     const whatsappMessage = encodeURIComponent("¡Hola! Quiero más información sobre los productos de FutBolt Shop.");
 
     return (
-        <div className="relative w-full overflow-hidden bg-gradient-to-br from-green-600 via-green-700 to-green-800 py-12 sm:py-14 md:py-16 lg:py-20">
+        <div className="relative w-full overflow-hidden bg-gradient-to-br from-green-600 via-green-700 to-green-800 py-20 sm:py-24 md:py-28 lg:py-32">
             {/* Animated Background Pattern */}
             <div className="absolute inset-0 opacity-10">
                 <div className="absolute inset-0"
