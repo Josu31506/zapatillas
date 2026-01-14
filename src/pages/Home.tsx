@@ -138,7 +138,7 @@ export const Home = () => {
                     </div>
 
                     {/* Product Info */}
-                    <div className="p-4 sm:p-5 space-y-2 sm:space-y-3 bg-white">
+                    <div className="p-4 sm:p-5 space-y-2 sm:space-y-3 bg-white text-center">
                       <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 line-clamp-2 min-h-[38px] sm:min-h-[44px] md:min-h-[52px] group-hover:text-brand-cyan transition-colors leading-tight">
                         {formatProductName(product.name)}
                       </h3>
