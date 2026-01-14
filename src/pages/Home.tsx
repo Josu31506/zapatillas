@@ -122,11 +122,11 @@ export const Home = () => {
                   <a
                     key={product.id}
                     href={`/product/${product.id}`}
-                    className="group block bg-white rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 border-gray-100 hover:border-brand-cyan transform hover:-translate-y-2 animate-fade-in scale-[0.8] origin-center"
+                    className="group block bg-white rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 border-gray-100 hover:border-brand-cyan transform hover:-translate-y-2 animate-fade-in"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {/* Product Image */}
-                    <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-white flex items-center justify-center overflow-hidden p-4 sm:p-6">
+                    <div className="relative w-full h-48 sm:h-56 md:h-64 bg-gradient-to-br from-gray-50 to-white flex items-center justify-center overflow-hidden p-3 sm:p-4">
                       {/* Hover Glow Effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-brand-cyan/0 to-brand-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
