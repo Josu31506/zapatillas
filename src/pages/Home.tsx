@@ -122,7 +122,7 @@ export const Home = () => {
                   <a
                     key={product.id}
                     href={`/product/${product.id}`}
-                    className="group block bg-white rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 border-gray-100 hover:border-brand-cyan transform hover:-translate-y-2 animate-fade-in"
+                    className="group block bg-white rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 border-gray-100 hover:border-brand-cyan transform hover:-translate-y-2 animate-fade-in scale-[0.9] origin-center"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {/* Product Image */}
@@ -139,12 +139,12 @@ export const Home = () => {
 
                     {/* Product Info */}
                     <div className="p-4 sm:p-5 space-y-2 sm:space-y-3 bg-white text-center">
-                      <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 line-clamp-2 min-h-[38px] sm:min-h-[44px] md:min-h-[52px] group-hover:text-brand-cyan transition-colors leading-tight">
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 line-clamp-2 min-h-[38px] sm:min-h-[44px] md:min-h-[52px] group-hover:text-brand-cyan transition-colors leading-tight">
                         {formatProductName(product.name)}
                       </h3>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-lg sm:text-xl md:text-2xl font-black text-gray-900">
+                        <span className="text-xl sm:text-2xl md:text-3xl font-black text-gray-900">
                           S/ {product.price}
                         </span>
 
