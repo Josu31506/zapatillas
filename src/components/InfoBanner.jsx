@@ -4,8 +4,8 @@ const InfoBanner = () => {
     return (
         <div className="w-full bg-gray-900">
             <img
-                src="/banner.png"
-                alt="Promotional Banner"
+                src="/info-banner.png"
+                alt="Envíos a todo el país, Entregas en estación, Pago contraentrega - FutBolt Shop"
                 className="w-full h-full object-cover"
             />
         </div>
