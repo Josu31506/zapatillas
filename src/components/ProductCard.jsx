@@ -39,7 +39,7 @@ const ProductCard = ({ product }) => {
 
       {/* Info Container - Responsive Text Sizes */}
       <div className="px-3 sm:px-4 pb-4 sm:pb-5 pt-3 sm:pt-4">
-        <h3 className="text-sm sm:text-base md:text-lg font-bold text-slate-900 line-clamp-2 min-h-[38px] sm:min-h-[44px] md:min-h-[52px] leading-tight mb-2 sm:mb-3">
+        <h3 className="text-sm sm:text-base md:text-lg font-bold text-slate-900 line-clamp-2 min-h-[38px] sm:min-h-[44px] md:min-h-[52px] leading-tight mb-2 sm:mb-3 capitalize">
           {name}
         </h3>
 

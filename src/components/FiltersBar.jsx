@@ -119,7 +119,6 @@ export default function FiltersBar({ filters, onChange }) {
               <option value="Firm Ground">Firm Ground</option>
               <option value="Turf">Turf</option>
               <option value="Indoor">Indoor</option>
-              <option value="Híbrido">Híbrido</option>
             </select>
           </label>
 
