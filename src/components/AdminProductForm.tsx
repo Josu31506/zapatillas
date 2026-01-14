@@ -185,9 +185,9 @@ const AdminProductForm = () => {
                         value={tallas}
                         onChange={(e) => setTallas(e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Ej: 38, 39, 40, 41, 42"
+                        placeholder="Ej: 40, 40.5, 41, 41.5, 42, 42.5, 43"
                     />
-                    <p className="mt-1 text-xs text-gray-500">Separa las tallas con comas</p>
+                    <p className="mt-1 text-xs text-gray-500">Separa las tallas con comas (acepta decimales: 42.5, 43.5)</p>
                 </div>
 
                 <div>
